@@ -1,0 +1,94 @@
+.SILENT:
+
+CC = g++ -Wall -m64
+C11FLAGS = -std=c++11 
+DSTDIR = ./Programme
+CLASSE = ./Classes
+OBJ = ./Obj
+ECRAN = $(HOME)/Ecran
+
+WIN = ./Classes/WindowSDL
+EXCEPTION = ./Classes/Exception
+
+OBJS = WindowSDL.o WindowSDLexception.o WindowSDLimage.o WindowSDLclick.o
+
+PROGRAMS = TestWindowSDL Program
+all: $(PROGRAMS) 
+
+# --- Test5 ---
+Program: BaseException InvalidColorException Couleur Point Figure Pixel Ligne Rectangle Ecran Test5
+	$(CC) $(C11FLAGS) -o $(DSTDIR)/Test5 $(OBJ)/BaseException.o $(OBJ)/InvalidColorException.o $(OBJ)/Couleur.o $(OBJ)/Point.o $(OBJ)/Figure.o $(OBJ)/Pixel.o $(OBJ)/Ligne.o $(OBJ)/Rectangle.o $(OBJ)/Ecran.o $(OBJ)/Test5.o $(OBJ)/WindowSDL.o $(OBJ)/WindowSDLexception.o $(OBJ)/WindowSDLimage.o $(OBJ)/WindowSDLclick.o -lpthread -lSDL
+	echo "[**] Creation de Program"
+
+
+# --- Les Exceptions ---
+BaseException: $(EXCEPTION)/BaseException.cpp
+	$(CC) $(C11FLAGS) $(EXCEPTION)/BaseException.cpp -c -o $(OBJ)/BaseException.o
+	echo "[!] Creation de BaseException.o"	
+
+InvalidColorException: $(EXCEPTION)/InvalidColorException.cpp
+	$(CC) $(C11FLAGS) $(EXCEPTION)/InvalidColorException.cpp -c -o $(OBJ)/InvalidColorException.o
+	echo "[!] Creation de InvalidColorException.o"
+
+# --- --- --- --- ---
+
+Rectangle: $(CLASSE)/Rectangle.cpp
+	$(CC) $(C11FLAGS) $(CLASSE)/Rectangle.cpp -c -o $(OBJ)/Rectangle.o
+	echo "[+] Creation de Rectangle.o"	
+
+Ligne: $(CLASSE)/Ligne.cpp
+	$(CC) $(C11FLAGS) $(CLASSE)/Ligne.cpp -c -o $(OBJ)/Ligne.o
+	echo "[+] Creation de Ligne.o"
+
+Couleur: $(CLASSE)/Couleur.cpp
+	$(CC) $(C11FLAGS) $(CLASSE)/Couleur.cpp -c -o $(OBJ)/Couleur.o
+	echo "[+] Creation de Couleur.o"
+
+Point: $(CLASSE)/Point.cpp  
+	$(CC) $(C11FLAGS) $(CLASSE)/Point.cpp -c -o $(OBJ)/Point.o
+	echo "[+] Creation de Point.o"	
+
+Figure: $(CLASSE)/Figure.cpp
+	$(CC) $(C11FLAGS) $(CLASSE)/Figure.cpp -c -o $(OBJ)/Figure.o
+	echo "[+] Creation de Figure.o"	
+
+Pixel: $(CLASSE)/Pixel.cpp
+	$(CC) $(C11FLAGS) $(CLASSE)/Pixel.cpp -c -o $(OBJ)/Pixel.o
+	echo "[+] Creation de Pixel.o"
+
+Test5: $(CLASSE)/Test5.cpp
+	$(CC) $(C11FLAGS) $(CLASSE)/Test5.cpp -c -o $(OBJ)/Test5.o
+	echo "[+] Creation de Test5.o"	
+
+Ecran: $(ECRAN)/Ecran.cpp
+	$(CC) $(C11FLAGS) -D SUN $(ECRAN)/Ecran.cpp -c -o $(OBJ)/Ecran.o
+	echo "[+] Creation de Ecran.o"	
+
+# --- TestWindowSDL --- 
+TestWindowSDL:	$(WIN)/TestWindowSDL.cpp $(OBJS)
+	$(CC) $(WIN)/TestWindowSDL.cpp -o $(DSTDIR)/TestWindowSDL $(OBJ)/WindowSDL.o $(OBJ)/WindowSDLexception.o $(OBJ)/WindowSDLimage.o $(OBJ)/WindowSDLclick.o -lpthread -lSDL
+	echo "[**] Creation de TestWindowSDL"
+
+WindowSDL.o:	$(WIN)/WindowSDL.cpp $(WIN)/WindowSDL.h
+		$(CC) $(C11FLAGS) $(WIN)/WindowSDL.cpp -c -o $(OBJ)/WindowSDL.o
+		echo "[->] Creation de WindowSDL.o ..."		
+
+WindowSDLexception.o:	$(WIN)/WindowSDLexception.cpp $(WIN)/WindowSDLexception.h
+		$(CC) $(C11FLAGS) $(WIN)/WindowSDLexception.cpp -c -o $(OBJ)/WindowSDLexception.o
+		echo "[->] Creation de WindowSDLexception.o ..."		
+
+WindowSDLclick.o:	$(WIN)/WindowSDLclick.cpp $(WIN)/WindowSDLclick.h
+		$(CC) $(C11FLAGS) $(WIN)/WindowSDLclick.cpp -c -o $(OBJ)/WindowSDLclick.o
+		echo "[->] Creation  de WindowSDLclick.o ..."		
+	
+WindowSDLimage.o:	$(WIN)/WindowSDLimage.cpp $(WIN)/WindowSDLimage.h
+		$(CC) $(C11FLAGS) $(WIN)/WindowSDLimage.cpp -c -o $(OBJ)/WindowSDLimage.o
+		echo "[->] Creation de WindowSDLimage.o ..."		
+
+# --- Nettoyage ---
+clean:
+	@rm -f $(OBJS) core
+
+clobber:	clean
+	@rm -f tags $(PROGRAMS)
+

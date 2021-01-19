@@ -1,0 +1,25 @@
+.SILENT:
+
+GPP = g++ -Wall -m64 -D DEBUG
+C11FLAGS = -std=c++11 
+DSTDIR = ./programme
+CLASSE = ./classes
+
+
+PROGRAMS = Program
+all: $(PROGRAMS)
+
+
+Program: Couleur Test1
+	echo "[+] Creation de Test1"
+	$(GPP) $(C11FLAGS) -o $(DSTDIR)/Test1 Couleur.o Test1.o 
+
+Couleur: $(CLASSE)/Couleur.cpp  
+	echo "[+] Creation de Couleur.o"
+	$(GPP) $(C11FLAGS) $(CLASSE)/Couleur.cpp -c
+
+Test1: $(CLASSE)/Test1.cpp
+	echo "[+] Creation de Test1.o"
+	$(GPP) $(C11FLAGS) $(CLASSE)/Test1.cpp -c
+
+

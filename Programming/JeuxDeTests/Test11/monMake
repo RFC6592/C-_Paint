@@ -1,0 +1,133 @@
+.SILENT:
+
+CC = g++ -Wall -m64
+C11FLAGS = -std=c++11 
+DSTDIR = ./Programme
+CLASSE = ./Classes
+OBJ = ./Obj
+ECRAN = $(HOME)/Ecran
+
+WIN = ./Classes/WindowSDL
+EXCEPTION = ./Classes/Exception
+TEMPLATE = ./Classes/Template
+INTERFACE = ./Classes/Interface
+
+OBJS = WindowSDL.o WindowSDLexception.o WindowSDLimage.o WindowSDLclick.o
+OBJS_FILES = $(OBJ)/BaseException.o $(OBJ)/InvalidColorException.o $(OBJ)/Couleur.o $(OBJ)/Point.o $(OBJ)/Figure.o $(OBJ)/Pixel.o $(OBJ)/Ligne.o $(OBJ)/Rectangle.o $(OBJ)/Ecran.o $(OBJ)/Iterateur.o $(OBJ)/ListeBase.o $(OBJ)/Liste.o $(OBJ)/Pile.o $(OBJ)/Dessin.o $(OBJ)/Bouton.o $(OBJ)/BoutonCouleur.o $(OBJ)/ToolBar.o $(OBJ)/Test11.o $(OBJ)/WindowSDL.o $(OBJ)/WindowSDLexception.o $(OBJ)/WindowSDLimage.o $(OBJ)/WindowSDLclick.o
+
+# --- Test10 ---
+Program: Ecran BaseException InvalidColorException Couleur Point Figure Pixel Ligne Rectangle Iterateur ListeBase Liste Pile Dessin Bouton BoutonCouleur ToolBar Test11
+	$(CC) $(C11FLAGS) -o $(DSTDIR)/Test11 $(OBJS_FILES) -lpthread -lSDL
+	echo "\033[32m[**] Creation de Program\033[0m"
+
+# --- Dessiner ---
+Dessin: $(CLASSE)/Dessin.cpp
+	$(CC) $(C11FLAGS) $(CLASSE)/Dessin.cpp -c -o $(OBJ)/Dessin.o
+	echo "\033[33m[+] Creation de Dessin.o\033[0m"	
+
+
+
+# --- Interface graphique ----
+Bouton: $(INTERFACE)/Bouton.cpp
+	$(CC) $(C11FLAGS) $(INTERFACE)/Bouton.cpp -c -o $(OBJ)/Bouton.o
+	echo "\033[36m[+] Creation de Bouton.o\033[0m"	
+
+BoutonCouleur: $(INTERFACE)/BoutonCouleur.cpp
+	$(CC) $(C11FLAGS) $(INTERFACE)/BoutonCouleur.cpp -c -o $(OBJ)/BoutonCouleur.o
+	echo "\033[36m[+] Creation de BoutonCouleur.o\033[0m"	
+
+ToolBar: $(INTERFACE)/ToolBar.cpp
+	$(CC) $(C11FLAGS) $(INTERFACE)/ToolBar.cpp -c -o $(OBJ)/ToolBar.o
+	echo "\033[36m[+] Creation de ToolBar.o\033[0m"	
+
+
+# --- Les Exceptions ---
+BaseException: $(EXCEPTION)/BaseException.cpp
+	$(CC) $(C11FLAGS) $(EXCEPTION)/BaseException.cpp -c -o $(OBJ)/BaseException.o
+	echo "\033[31m[!] Creation de BaseException.o\033[0m"	
+
+InvalidColorException: $(EXCEPTION)/InvalidColorException.cpp
+	$(CC) $(C11FLAGS) $(EXCEPTION)/InvalidColorException.cpp -c -o $(OBJ)/InvalidColorException.o
+	echo "\033[31m[!] Creation de InvalidColorException.o\033[0m"
+
+# --- --- --- --- ---
+
+Iterateur: $(TEMPLATE)/Iterateur.cpp
+	$(CC) $(C11FLAGS) $(TEMPLATE)/Iterateur.cpp -c -o $(OBJ)/Iterateur.o
+	echo "\033[34m[°] Creation de Iterateur.o\033[0m"	
+	
+ListeBase: $(TEMPLATE)/ListeBase.cpp $(TEMPLATE)/ListeBase.h $(TEMPLATE)/Cellule.h
+	$(CC) $(C11FLAGS) $(TEMPLATE)/ListeBase.cpp -c -o $(OBJ)/ListeBase.o
+	echo "\033[34m[°] Creation de ListeBase.o\033[0m"
+
+Liste: $(TEMPLATE)/Liste.cpp
+	$(CC) $(C11FLAGS) $(TEMPLATE)/Liste.cpp -c -o $(OBJ)/Liste.o
+	echo "\033[34m[°] Creation de Liste.o\033[0m"
+
+Pile: $(TEMPLATE)/Pile.cpp
+	$(CC) $(C11FLAGS) $(TEMPLATE)/Pile.cpp -c -o $(OBJ)/Pile.o
+	echo "\033[34m[°] Creation de Pile.o\033[0m"
+# --- --- --- --- ---
+
+
+Rectangle: $(CLASSE)/Rectangle.cpp
+	$(CC) $(C11FLAGS) $(CLASSE)/Rectangle.cpp -c -o $(OBJ)/Rectangle.o
+	echo "\033[33m[+] Creation de Rectangle.o\033[0m"	
+
+Ligne: $(CLASSE)/Ligne.cpp
+	$(CC) $(C11FLAGS) $(CLASSE)/Ligne.cpp -c -o $(OBJ)/Ligne.o
+	echo "\033[33m[+] Creation de Ligne.o\033[0m"
+
+Couleur: $(CLASSE)/Couleur.cpp
+	$(CC) $(C11FLAGS) $(CLASSE)/Couleur.cpp -c -o $(OBJ)/Couleur.o
+	echo "\033[33m[+] Creation de Couleur.o\033[0m"
+
+Point: $(CLASSE)/Point.cpp  
+	$(CC) $(C11FLAGS) $(CLASSE)/Point.cpp -c -o $(OBJ)/Point.o
+	echo "\033[33m[+] Creation de Point.o\033[0m"	
+
+Figure: $(CLASSE)/Figure.cpp
+	$(CC) $(C11FLAGS) $(CLASSE)/Figure.cpp -c -o $(OBJ)/Figure.o
+	echo "\033[33m[+] Creation de Figure.o\033[0m"	
+
+Pixel: $(CLASSE)/Pixel.cpp
+	$(CC) $(C11FLAGS) $(CLASSE)/Pixel.cpp -c -o $(OBJ)/Pixel.o
+	echo "\033[33m[+] Creation de Pixel.o\033[0m"
+
+Test11: $(CLASSE)/Test11.cpp
+	$(CC) $(C11FLAGS) $(CLASSE)/Test11.cpp -c -o $(OBJ)/Test11.o
+	echo "\033[33m[+] Creation de Test11.o\033[0m"	
+
+Ecran: $(ECRAN)/Ecran.cpp
+	$(CC) $(C11FLAGS) -D SUN $(ECRAN)/Ecran.cpp -c -o $(OBJ)/Ecran.o
+	echo "\033[35m[+] Creation de Ecran.o\033[0m"	
+
+# --- TestWindowSDL --- 
+#TestWindowSDL:	$(WIN)/TestWindowSDL.cpp $(OBJS)
+#	$(CC) $(WIN)/TestWindowSDL.cpp -o $(DSTDIR)/TestWindowSDL $(OBJ)/WindowSDL.o $(OBJ)/WindowSDLexception.o $(OBJ)/WindowSDLimage.o $(OBJ)/WindowSDLclick.o -lpthread -lSDL
+#	echo "\033[32m[**] Creation de TestWindowSDL\033[0m"
+
+WindowSDL.o:	$(WIN)/WindowSDL.cpp $(WIN)/WindowSDL.h
+		$(CC) $(C11FLAGS) $(WIN)/WindowSDL.cpp -c -o $(OBJ)/WindowSDL.o
+		echo "\033[36m[->] Creation de WindowSDL.o ...\033[0m"		
+
+WindowSDLexception.o:	$(WIN)/WindowSDLexception.cpp $(WIN)/WindowSDLexception.h
+		$(CC) $(C11FLAGS) $(WIN)/WindowSDLexception.cpp -c -o $(OBJ)/WindowSDLexception.o
+		echo "\033[36m[->] Creation de WindowSDLexception.o ...\033[0m"		
+
+WindowSDLclick.o:	$(WIN)/WindowSDLclick.cpp $(WIN)/WindowSDLclick.h
+		$(CC) $(C11FLAGS) $(WIN)/WindowSDLclick.cpp -c -o $(OBJ)/WindowSDLclick.o
+		echo "\033[36m[->] Creation  de WindowSDLclick.o ...\033[0m"		
+	
+WindowSDLimage.o:	$(WIN)/WindowSDLimage.cpp $(WIN)/WindowSDLimage.h
+		$(CC) $(C11FLAGS) $(WIN)/WindowSDLimage.cpp -c -o $(OBJ)/WindowSDLimage.o
+		echo "\033[36m[->] Creation de WindowSDLimage.o ...\033[0m"		
+
+# --- Nettoyage ---
+clean:
+	@rm -f $(OBJS) core
+	echo "\033[32m\033[1mNettoyage\033[0m"
+
+clobber:	clean
+	@rm -f tags $(PROGRAMS)
+
